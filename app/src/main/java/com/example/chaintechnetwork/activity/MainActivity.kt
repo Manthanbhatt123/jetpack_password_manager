@@ -78,7 +78,7 @@ fun ChaintechNetworkApp() {
     val context = LocalContext.current
     val accountViewModel: AccountViewModel = ViewModelProvider(
         context as MainActivity,
-        AccountViewModelFactory(Application(), context)
+        AccountViewModelFactory(Application())
     )[AccountViewModel::class.java]
     Scaffold(
         containerColor = Color(0xFFE9ECF3),
@@ -110,7 +110,6 @@ fun AppTopBar() {
 @Composable
 fun AddAccountFab(accountViewModel: AccountViewModel, context: MainActivity) {
     val showBottomSheet = remember { mutableStateOf(false) }
-
     FloatingActionButton(
         contentColor = Color.White,
         containerColor = Color(0xFF72AEDF),
@@ -132,12 +131,10 @@ fun AddAccountFab(accountViewModel: AccountViewModel, context: MainActivity) {
 @Composable
 fun AccountList(accountViewModel: AccountViewModel) {
     val accounts by accountViewModel.allAccounts.observeAsState(initial = emptyList())
-    val context = LocalContext.current
     val viewModel: AccountViewModel = ViewModelProvider(
         LocalContext.current as MainActivity,
-        AccountViewModelFactory(Application(), context)
+        AccountViewModelFactory(Application())
     )[AccountViewModel::class.java]
-//    val accounts = viewModel.getAllData() // You need to define allAccounts in AccountViewModel
 
     if (accounts.isEmpty()) {
         Column(
@@ -155,7 +152,6 @@ fun AccountList(accountViewModel: AccountViewModel) {
             }
         }
     }
-
 }
 
 @Composable
@@ -182,7 +178,6 @@ fun AccountItem(account: AccountEntity, viewModel: AccountViewModel) {
             for (i in 0..decPass.length) {
                 star += "*"
             }
-//            Row {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = account.name,
@@ -210,7 +205,6 @@ fun AccountItem(account: AccountEntity, viewModel: AccountViewModel) {
         )
     }
     Log.e("DataBase", "AccountItem:$account ")
-    // Display account details
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
